@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements PersonAdapter.OnPersonClickedListener {
+public class MainActivity extends AppCompatActivity  {
 
     private RecyclerView recyclerView_list;
     private ArrayList<Person> personList;
@@ -36,15 +36,12 @@ public class MainActivity extends AppCompatActivity implements PersonAdapter.OnP
         setContentView(R.layout.activity_main);
         generateData();
         recyclerView = findViewById(R.id.recyclerview_list);
-        personAdapter = new PersonAdapter(personList,this);
+        personAdapter = new PersonAdapter(personList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(personAdapter);
     }
 
 
-    @Override
-    public void onItemClicked(Person person) {
-        Toast.makeText(this,"Person name is "+person.getFirstName(),Toast.LENGTH_SHORT).show();
-    }
+
 }

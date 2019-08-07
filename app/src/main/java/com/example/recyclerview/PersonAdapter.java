@@ -15,7 +15,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
     private ArrayList<Person> personArrayList;
     private OnPersonClickedListener onPersonClickedListener;
 
-    public PersonAdapter(ArrayList<Person> personArrayList, OnPersonClickedListener onPersonClickedListener) {
+    public PersonAdapter(ArrayList<Person> personArrayList) {
         this.personArrayList = personArrayList;
         this.onPersonClickedListener = onPersonClickedListener;
     }
@@ -24,7 +24,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
     @Override
     public PersonViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item_layout,parent,false);
-        return new PersonViewHolder(view,onPersonClickedListener);
+        return new PersonViewHolder(view);
     }
 
     @Override
@@ -40,25 +40,18 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
         return personArrayList.size();
     }
 
-    public class PersonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class PersonViewHolder extends RecyclerView.ViewHolder{
         public TextView tvFirstname;
         public TextView tvLastname;
         public TextView tvAge;
-        OnPersonClickedListener listener;
-        public PersonViewHolder(@NonNull View itemView, OnPersonClickedListener onPersonClickedListener) {
+        public PersonViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFirstname = itemView.findViewById(R.id.tv_firstname);
             tvLastname = itemView.findViewById(R.id.tv_lastname);
             tvAge = itemView.findViewById(R.id.tv_age);
-            this.listener = onPersonClickedListener;
-            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View view) {
-            Person person = personArrayList.get(getAdapterPosition());
-            listener.onItemClicked(person);
-        }
+
     }
 
     public interface OnPersonClickedListener{
