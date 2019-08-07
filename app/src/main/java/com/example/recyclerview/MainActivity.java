@@ -36,7 +36,12 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
         generateData();
         recyclerView = findViewById(R.id.recyclerview_list);
-        personAdapter = new PersonAdapter(personList);
+        personAdapter = new PersonAdapter(personList, new PersonAdapter.OnPersonClickedListener() {
+            @Override
+            public void onItemClicked(Person person) {
+                Toast.makeText(MainActivity.this,"firstname"+person.getFirstName(),Toast.LENGTH_SHORT).show();
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(personAdapter);

@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonViewHolder> {
 
     private ArrayList<Person> personArrayList;
-    private OnPersonClickedListener onPersonClickedListener;
+    private OnPersonClickedListener listener;
 
-    public PersonAdapter(ArrayList<Person> personArrayList) {
+    public PersonAdapter(ArrayList<Person> personArrayList, OnPersonClickedListener listener) {
         this.personArrayList = personArrayList;
-        this.onPersonClickedListener = onPersonClickedListener;
+        this.listener = listener;
     }
 
     @NonNull
@@ -30,6 +30,7 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
     @Override
     public void onBindViewHolder(@NonNull PersonViewHolder holder, int position) {
         Person person = personArrayList.get(position);
+        holder.bind(person,listener);
         holder.tvFirstname.setText(person.getFirstName());
         holder.tvLastname.setText(person.getLastName());
         holder.tvAge.setText(String.valueOf(person.getAge()));
@@ -51,6 +52,14 @@ public class PersonAdapter extends RecyclerView.Adapter<PersonAdapter.PersonView
             tvAge = itemView.findViewById(R.id.tv_age);
         }
 
+        public void bind(final Person person, final OnPersonClickedListener listener){
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onItemClicked(person);
+                }
+            });
+        }
 
     }
 
